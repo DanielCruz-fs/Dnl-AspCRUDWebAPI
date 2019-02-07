@@ -43,7 +43,7 @@ namespace CRUDApi.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
-
+            Employee employeeUpdated;
             if (id != employee.ID)
             {
                 return BadRequest();
@@ -54,6 +54,8 @@ namespace CRUDApi.Controllers
             try
             {
                 db.SaveChanges();
+                /*to get employee object after being updated*/
+                employeeUpdated = db.Employees.Find(id);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -67,7 +69,7 @@ namespace CRUDApi.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(employeeUpdated);
         }
 
         // POST: api/Employee
